@@ -14,63 +14,82 @@ function draw(){
     line(0 , 200 , 600 , 200);
     line(0 , 400 , 600 , 400); 
 
+    console.log(turns);
+    console.log(slots);
+
     // if X wins by going through the first row 
-    if(slots[0] == "X" && slots[1] == "X" && slots[2] == "X"){
-        line(0 , 125 , 600 , 125);
-        W();
-        I();
-        N();
-    }
+    winCondition(0 , 1 , 2 , "X");// across the top row for X
+    winCondition(0 , 1 , 2 , "O");// across the top row for O
+    winCondition(3 , 4 , 5 , "X");// across the mid row for X
+    winCondition(3 , 4 , 5 , "O");// across the mid row for O
+    winCondition(6 , 7 , 8 , "X");// across the bottom row for X
+    winCondition(6 , 7 , 8 , "O");// across the bottom row for O
+    winCondition(0 , 3 , 6 , "X");// vertically first row for X
+    winCondition(0 , 3 , 6 , "O");// vertically first row for O 
+    winCondition(1 , 4 , 7 , "X");// vertically second row for X
+    winCondition(1 , 4 , 7 , "O");// vertically second row for O 
+    winCondition(2 , 5 , 8 , "X");// vertically third row for X
+    winCondition(2 , 5 , 8 , "O");// vertically third row for O 
+    winCondition(0 , 4 , 8 , "X");// diagonally from left to right for X
+    winCondition(0 , 4 , 8 , "O");// diagonally from left to right for O
+    winCondition(2 , 4 , 6 , "X");// diagonally from right to left for X
+    winCondition(2 , 4 , 6 , "O");// diagonally from right to left for O
     
 }
 
 function X(xLoc ,yLoc){
     textSize(150);
     textAlign(CENTER);
-    text("X" , xLoc, yLoc)
+    text("X" , xLoc, yLoc);
 }
 function O(oLoc1 , oLoc2){
     textSize(150);
     textAlign(CENTER);
-    text("O" , oLoc1, oLoc2)
+    text("O" , oLoc1, oLoc2);
 }
-function W(){
-    textSize(150);
-    textAlign(CENTER);
-    text("W" , 100, 325)
-}
-function I(){
-    textSize(150);
-    textAlign(CENTER);
-    text("I" , 300 , 325)
-}
-function N(){
-    textSize(150);
-    textAlign(CENTER);
-    text("N" , 500, 525)
+
+function mouseBarriers(x1 , x2, y1, y2 , index , loc1 , loc2 ){
+    if(mouseX > x1 && mouseX < x2 && mouseY > y1 & mouseY < y2  && Math.floor((turns[turns.length - 1] % 2)) !=  1 && slots[index] == "" ){
+        slots[index] = "O";
+        O(loc1 , loc2);
+        turns.pop();
+    }
+    if(mouseX > x1 && mouseX < x2 && mouseY > y1 & mouseY < y2  && Math.floor((turns[turns.length - 1] % 2)) !=  0  && slots[index] == ""  ){
+        slots[index] = "X";
+        X(loc1 , loc2);
+        turns.pop();
+    }
 }
 
 function mouseClicked(){
     //box clicks
-    if(mouseX > 0 && mouseX < 200 && mouseY > 0 & mouseY < 200  && Math.floor((turns[turns.length - 1] % 2)) != 0  ){
-        slots[0] = "X";
-        turns.pop();
-        X(100 , 125);
-    }
-    if(mouseX > 0 && mouseX < 200 && mouseY > 0 & mouseY < 200  && Math.floor((turns[turns.length - 1] % 2)) == 1  ){
-        slots[0] = "O";
-        turns.pop();
-        O(100 , 125);
-    }
-    // doesn't work yet but should 
-    if(mouseX > 200 && mouseX < 400 && mouseY > 0 & mouseY < 200  && Math.floor((turns[turns.length - 1] % 2)) != 0 ){
-        slots[1] = "X";
-        turns.pop();
-        X(300 , 125);
-    }
-    if(mouseX > 200 && mouseX < 400 && mouseY > 0 & mouseY < 200  && Math.floor((turns[turns.length - 1] % 2)) == 1 ){
-        slots[1] = "O";
-        turns.pop();
-        O(300 , 125);
+    mouseBarriers(0 , 200 , 0 , 200 ,  0 , 100 , 125); //first row first box
+    mouseBarriers(200 , 400 , 0 , 200 , 1, 300 , 125); // first row second box
+    mouseBarriers(400 , 600 , 0 , 200 ,  2 , 500 , 125); // first row third box 
+    mouseBarriers(0 , 200 , 200 , 400 , 3, 100 , 325); // second row first box
+    mouseBarriers(200 , 400 , 200 , 400 , 4, 300 , 325); // second row second box
+    mouseBarriers(400 , 600 , 200 , 400 , 5, 500 , 325); // second row third box
+    mouseBarriers(0 , 200 , 400 , 600 , 6, 100 , 525); // third row first box
+    mouseBarriers(200 , 400 , 400 , 600 , 7, 300 , 525); // third row second box
+    mouseBarriers(400 , 600 , 400 , 600 , 8, 500 , 525); // third row third box
+    
+    
+} 
+function winCondition( x , y , z , letter){
+    if(slots[x] == letter && slots[y] == letter && slots[z] == letter){
+        background(255);
+        textSize(150);
+        textAlign(CENTER);
+        text(letter +"'s Win" , 300 , 325);
+        textAlign(CENTER);
+        textSize(25);
+        text("Press ENTER to replay" , 300 , 400);
     }
 }
+/*
+function keyPressed(){
+    if(keyCode == ENTER){
+
+    }
+}
+*/
