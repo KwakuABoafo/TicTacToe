@@ -9,6 +9,7 @@ function draw(){
     //vertical lines
     // line(x1 , y1 , x2 , y2); 
     if(gameMode == 0){
+    
     line(200, 0 , 200 , 600);
     line(400 , 0 , 400 , 600);
 
@@ -91,21 +92,25 @@ function winCondition( x , y , z , letter){
         textAlign(CENTER);
         textSize(25);
         text("Press ENTER to replay" , 300 , 400);
+        
     }
 
-    // if(turns.length == 0){
-    //     background(255);
-    //     textSize(150);
-    //     textAlign(CENTER);
-    //     text("It's A Tie!!!" , 300 , 325);
-    //     textAlign(CENTER);
-    //     textSize(25);
-    //     text("Press ENTER to replay" , 300 , 400);
-    // }
+    if(turns.length == 0){
+        background(255);
+        textSize(150);
+        textAlign(CENTER);
+        text("It's A Tie!!!" , 300 , 325);
+        textAlign(CENTER);
+        textSize(25);
+        text("Press ENTER to replay" , 300 , 400);
+    }
 }
 
 function keyPressed(){
-    if(gameMode == 1 && keyCode == ENTER ){
+    if(gameMode == 1 && keyCode === ENTER ){
+        background("white");
+        slots = ["" , "" , "" , "" , "" , "" , "" , "" , ""]; // resets board pieces and clears the board
+        turns = [1 ,2 ,3 ,4 ,5, 6 ,7 ,8, 9]; // resets the turns 
         gameMode = 0;
         
     }
