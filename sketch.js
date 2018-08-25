@@ -1,5 +1,6 @@
 let slots = ["" , "" , "" , "" , "" , "" , "" , "" , ""];
 let turns = [1 ,2 ,3 ,4 ,5, 6 ,7 ,8, 9];
+let gameMode = 0;
 function setup(){
     createCanvas(600 , 600); 
 }
@@ -7,6 +8,7 @@ function setup(){
 function draw(){
     //vertical lines
     // line(x1 , y1 , x2 , y2); 
+    if(gameMode == 0){
     line(200, 0 , 200 , 600);
     line(400 , 0 , 400 , 600);
 
@@ -34,15 +36,18 @@ function draw(){
     winCondition(0 , 4 , 8 , "O");// diagonally from left to right for O
     winCondition(2 , 4 , 6 , "X");// diagonally from right to left for X
     winCondition(2 , 4 , 6 , "O");// diagonally from right to left for O
+    }
     
 }
 
 function X(xLoc ,yLoc){
+    
     textSize(150);
     textAlign(CENTER);
     text("X" , xLoc, yLoc);
 }
 function O(oLoc1 , oLoc2){
+    
     textSize(150);
     textAlign(CENTER);
     text("O" , oLoc1, oLoc2);
@@ -76,7 +81,9 @@ function mouseClicked(){
     
 } 
 function winCondition( x , y , z , letter){
+    
     if(slots[x] == letter && slots[y] == letter && slots[z] == letter){
+        gameMode += 1;
         background(255);
         textSize(150);
         textAlign(CENTER);
@@ -85,11 +92,21 @@ function winCondition( x , y , z , letter){
         textSize(25);
         text("Press ENTER to replay" , 300 , 400);
     }
-}
-/*
-function keyPressed(){
-    if(keyCode == ENTER){
 
+    // if(turns.length == 0){
+    //     background(255);
+    //     textSize(150);
+    //     textAlign(CENTER);
+    //     text("It's A Tie!!!" , 300 , 325);
+    //     textAlign(CENTER);
+    //     textSize(25);
+    //     text("Press ENTER to replay" , 300 , 400);
+    // }
+}
+
+function keyPressed(){
+    if(gameMode == 1 && keyCode == ENTER ){
+        gameMode = 0;
+        
     }
 }
-*/
