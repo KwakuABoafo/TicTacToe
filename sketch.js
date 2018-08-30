@@ -84,7 +84,7 @@ function mouseClicked(){
 function winCondition( x , y , z , letter){
     
     if(slots[x] == letter && slots[y] == letter && slots[z] == letter){
-        gameMode += 1;
+        gameMode = 1;
         background(255);
         textSize(150);
         textAlign(CENTER);
@@ -95,11 +95,12 @@ function winCondition( x , y , z , letter){
         
     }
 
-    if(turns.length == 0){
+    if(turns.length == 0 && !(slots[x] == letter && slots[y] == letter && slots[z] == letter)){
+        gameMode = 1;
         background(255);
-        textSize(150);
+        textSize(125);
         textAlign(CENTER);
-        text("It's A Tie!!!" , 300 , 325);
+        text("It's a Tie!!!" , 300 , 325);
         textAlign(CENTER);
         textSize(25);
         text("Press ENTER to replay" , 300 , 400);
