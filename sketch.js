@@ -1,5 +1,6 @@
 let slots = ["" , "" , "" , "" , "" , "" , "" , "" , ""];
 let turns = [1 ,2 ,3 ,4 ,5, 6 ,7 ,8, 9];
+let gameStatus = false;
 let gameMode = 0;
 function setup(){
     createCanvas(600 , 600); 
@@ -19,6 +20,8 @@ function draw(){
 
     console.log(turns);
     console.log(slots);
+    console.log(gameMode);
+    console.log(gameStatus);
 
     // if X wins by going through the first row 
     winCondition(0 , 1 , 2 , "X");// across the top row for X
@@ -85,6 +88,7 @@ function winCondition( x , y , z , letter){
     
     if(slots[x] == letter && slots[y] == letter && slots[z] == letter){
         gameMode = 1;
+        gameStatus = true;
         background(255);
         textSize(150);
         textAlign(CENTER);
@@ -92,10 +96,10 @@ function winCondition( x , y , z , letter){
         textAlign(CENTER);
         textSize(25);
         text("Press ENTER to replay" , 300 , 400);
-        
+        "<br>";
     }
 
-    if(turns.length == 0 && !(slots[x] == letter && slots[y] == letter && slots[z] == letter)){
+    if(turns.length == 0 && !(slots[x] == letter && slots[y] == letter && slots[z] == letter) && gameStatus == false){
         gameMode = 1;
         background(255);
         textSize(125);
@@ -113,6 +117,6 @@ function keyPressed(){
         slots = ["" , "" , "" , "" , "" , "" , "" , "" , ""]; // resets board pieces and clears the board
         turns = [1 ,2 ,3 ,4 ,5, 6 ,7 ,8, 9]; // resets the turns 
         gameMode = 0;
-        
+        gameStatus = false;
     }
 }
